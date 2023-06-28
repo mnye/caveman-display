@@ -2,6 +2,7 @@
 Caveman Display - A WYSIWYG UI editor for microcontroller displays
 
 Written in C#
+If I was better with the web I'd make a browser version, but the priority for now is to get something working, not to learn a new technology
 
 Designed around using an ESP32, C++, and a Sharp MemoryLCD display
 - https://www.adafruit.com/product/4694
