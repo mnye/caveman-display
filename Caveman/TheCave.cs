@@ -15,22 +15,20 @@ namespace Caveman
     public TheCave()
     {
       InitializeComponent();
-
-
     }
 
     private void TheCave_Load(object sender, EventArgs e)
     {
-
     }
 
     private Pen _Fore = new Pen(Color.LightGray);
     private Pen _Back = new Pen(Color.White);
+    private int scale = 5;
 
     private int ScreenW => int.Parse(txtWidth.Text);
     private int ScreenH => int.Parse(txtHeight.Text);
 
-    private void pnlScreen_Paint(object sender, PaintEventArgs e)
+    private void pnlPixels_Paint(object sender, PaintEventArgs e)
     {
       var p = sender as Panel;
       if (p == null) throw new ArgumentException("need panel to paint");
@@ -40,9 +38,11 @@ namespace Caveman
       var screenW = ScreenW;
       var screenH = ScreenH;
 
-      // TODO - remove the * 2 - work out scrolling / zooming
-      var col = p.Width * 2 / screenW;
-      var row = p.Height * 2 / screenH;
+      p.Width = screenW * scale;
+      p.Height = screenH * scale;
+
+      var col = p.Width / screenW;
+      var row = p.Height / screenH;
 
       var maxX = col * screenW;
       var maxY = row * screenH;
@@ -62,7 +62,7 @@ namespace Caveman
 
     }
 
-    private void pnlScreen_MouseMove(object sender, MouseEventArgs e)
+    private void pnlPixels_MouseMove(object sender, MouseEventArgs e)
     {
       var p = sender as Panel;
       if (p == null) throw new ArgumentException("need panel to move");
@@ -71,9 +71,8 @@ namespace Caveman
       var screenW = ScreenW;
       var screenH = ScreenH;
 
-      // TODO - remove the * 2 - work out scrolling / zooming
-      var col = p.Width * 2 / screenW;
-      var row = p.Height * 2 / screenH;
+      var col = p.Width / screenW;
+      var row = p.Height / screenH;
 
       var x = 1 + (e.X / col);
       var y = 1 + (e.Y / row);
