@@ -1,5 +1,5 @@
 # caveman-display
-Caveman Display - A WYSIWYG UI editor for microcontroller displays
+Caveman Display - A WYSIWYG UI editor for microcontroller displays, generating C++ (or other) code to copy+paste into your microcontroller to drive your display
 
 Written in C#
 If I was better with the web I'd make a browser version, but the priority for now is to get something working, not to learn a new technology
@@ -13,6 +13,7 @@ Goals:
 - Point & click interface to draw graphics
 - Define const & variable sections of the screen to know what needs to be refreshed
 - Define variables linked to parts of the screen (e.g., text) which allows for trivial changes
+- Wrap it all up in a simple class
 
 Lofty goals?
 - Animations
