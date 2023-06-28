@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caveman", "Caveman\Caveman.csproj", "{D122FE98-3A78-46A7-BAA9-9F87F2D1F75D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caveman.Lib", "Caveman.Lib\Caveman.Lib.csproj", "{B043C45B-3976-46FC-A008-0C3F4D298553}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D122FE98-3A78-46A7-BAA9-9F87F2D1F75D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D122FE98-3A78-46A7-BAA9-9F87F2D1F75D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D122FE98-3A78-46A7-BAA9-9F87F2D1F75D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D122FE98-3A78-46A7-BAA9-9F87F2D1F75D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B043C45B-3976-46FC-A008-0C3F4D298553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B043C45B-3976-46FC-A008-0C3F4D298553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B043C45B-3976-46FC-A008-0C3F4D298553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B043C45B-3976-46FC-A008-0C3F4D298553}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C23F7D6C-CBFF-4B82-BDDF-B1B7A77DAFD1}
+	EndGlobalSection
+EndGlobal
