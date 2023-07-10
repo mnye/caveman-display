@@ -56,7 +56,7 @@ namespace Caveman
             if (isHorizontal)
             {
                 if (x1 > x2) { (x2, x1) = (x1, x2); }
-                for (int i = x1; i < x2; i++)
+                for (int i = x1; i <= x2; i++)
                 {
                     pixelBuffer[i, y1] = 1;
                     g.FillRectangle(pixelBrush, new Rectangle(i * scale, y1 * scale, scale, scale));
@@ -66,7 +66,7 @@ namespace Caveman
             {
                 if (y1 > y2) { (y2, y1) = (y1, y2); }
                 {
-                    for (int i = y1; i < y2; i++)
+                    for (int i = y1; i <= y2; i++)
                     {
                         pixelBuffer[x1, i] = 1;
                         g.FillRectangle(pixelBrush, new Rectangle(x1 * scale, i * scale, scale, scale));
