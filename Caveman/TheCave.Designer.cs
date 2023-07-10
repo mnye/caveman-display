@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             splitContainer1 = new SplitContainer();
+            buttonClear = new Button();
             button2 = new Button();
             buttonAdd = new Button();
             panel2 = new Panel();
@@ -48,7 +49,7 @@
             comboOutput = new ComboBox();
             comboScreen = new ComboBox();
             pnlScreen = new Panel();
-            pnlPixels = new Panel();
+            pbPixels = new PictureBox();
             statusStrip1 = new StatusStrip();
             lblCurrXY = new ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -58,6 +59,7 @@
             panel2.SuspendLayout();
             panel1.SuspendLayout();
             pnlScreen.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbPixels).BeginInit();
             statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -70,6 +72,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(buttonClear);
             splitContainer1.Panel1.Controls.Add(button2);
             splitContainer1.Panel1.Controls.Add(buttonAdd);
             splitContainer1.Panel1.Controls.Add(panel2);
@@ -83,31 +86,41 @@
             // 
             splitContainer1.Panel2.Controls.Add(pnlScreen);
             splitContainer1.Panel2.Controls.Add(statusStrip1);
-            splitContainer1.Size = new Size(1254, 904);
-            splitContainer1.SplitterDistance = 205;
+            splitContainer1.Size = new Size(1922, 991);
+            splitContainer1.SplitterDistance = 313;
             splitContainer1.SplitterWidth = 3;
             splitContainer1.TabIndex = 0;
+            // 
+            // buttonClear
+            // 
+            buttonClear.Location = new Point(31, 623);
+            buttonClear.Margin = new Padding(2, 3, 2, 3);
+            buttonClear.Name = "buttonClear";
+            buttonClear.Size = new Size(133, 29);
+            buttonClear.TabIndex = 9;
+            buttonClear.Text = "Clear Image";
+            buttonClear.UseVisualStyleBackColor = true;
+            buttonClear.Click += buttonClear_Click;
             // 
             // button2
             // 
             button2.Location = new Point(31, 303);
             button2.Margin = new Padding(2, 3, 2, 3);
             button2.Name = "button2";
-            button2.Size = new Size(133, 25);
+            button2.Size = new Size(133, 27);
             button2.TabIndex = 8;
             button2.Text = "Delete";
             button2.UseVisualStyleBackColor = true;
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(31, 273);
+            buttonAdd.Location = new Point(31, 270);
             buttonAdd.Margin = new Padding(2, 3, 2, 3);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(133, 25);
+            buttonAdd.Size = new Size(133, 28);
             buttonAdd.TabIndex = 7;
             buttonAdd.Text = "Add";
             buttonAdd.UseVisualStyleBackColor = true;
-            buttonAdd.Click += buttonAdd_Click;
             // 
             // panel2
             // 
@@ -119,10 +132,10 @@
             panel2.Controls.Add(comboBox1);
             panel2.Controls.Add(textBox1);
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(9, 589);
+            panel2.Location = new Point(9, 676);
             panel2.Margin = new Padding(2, 3, 2, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(183, 307);
+            panel2.Size = new Size(291, 307);
             panel2.TabIndex = 6;
             // 
             // textBox2
@@ -224,7 +237,7 @@
             panel1.Location = new Point(0, 56);
             panel1.Margin = new Padding(2, 3, 2, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(205, 27);
+            panel1.Size = new Size(313, 27);
             panel1.TabIndex = 3;
             // 
             // txtHeight
@@ -268,7 +281,7 @@
             comboOutput.Location = new Point(0, 28);
             comboOutput.Margin = new Padding(2, 3, 2, 3);
             comboOutput.Name = "comboOutput";
-            comboOutput.Size = new Size(205, 28);
+            comboOutput.Size = new Size(313, 28);
             comboOutput.TabIndex = 1;
             comboOutput.Text = "Adafruit GFX Library";
             // 
@@ -279,7 +292,7 @@
             comboScreen.Location = new Point(0, 0);
             comboScreen.Margin = new Padding(2, 3, 2, 3);
             comboScreen.Name = "comboScreen";
-            comboScreen.Size = new Size(205, 28);
+            comboScreen.Size = new Size(313, 28);
             comboScreen.TabIndex = 0;
             comboScreen.Text = "Sharp MemoryLCD 2.7\"";
             // 
@@ -288,36 +301,34 @@
             pnlScreen.AutoScroll = true;
             pnlScreen.AutoSize = true;
             pnlScreen.BackColor = SystemColors.WindowFrame;
-            pnlScreen.Controls.Add(pnlPixels);
+            pnlScreen.Controls.Add(pbPixels);
             pnlScreen.Dock = DockStyle.Fill;
             pnlScreen.Location = new Point(0, 0);
             pnlScreen.Margin = new Padding(2, 3, 2, 3);
             pnlScreen.Name = "pnlScreen";
-            pnlScreen.Size = new Size(1046, 878);
+            pnlScreen.Size = new Size(1606, 965);
             pnlScreen.TabIndex = 1;
             // 
-            // pnlPixels
+            // pbPixels
             // 
-            pnlPixels.AutoScroll = true;
-            pnlPixels.AutoSize = true;
-            pnlPixels.BackColor = SystemColors.Window;
-            pnlPixels.Location = new Point(2, 3);
-            pnlPixels.Margin = new Padding(2, 3, 2, 3);
-            pnlPixels.Name = "pnlPixels";
-            pnlPixels.Size = new Size(794, 655);
-            pnlPixels.TabIndex = 2;
-            pnlPixels.Paint += pnlPixels_Paint;
-            pnlPixels.MouseClick += pnlPixels_Click;
-            pnlPixels.MouseMove += pnlPixels_MouseMove;
+            pbPixels.BackColor = Color.DarkGray;
+            pbPixels.Location = new Point(3, 3);
+            pbPixels.Name = "pbPixels";
+            pbPixels.Size = new Size(1600, 960);
+            pbPixels.TabIndex = 0;
+            pbPixels.TabStop = false;
+            pbPixels.Paint += pbPixels_Paint;
+            pbPixels.MouseMove += pbPixels_MouseMove;
+            pbPixels.MouseUp += pbPixels_MouseUp;
             // 
             // statusStrip1
             // 
             statusStrip1.ImageScalingSize = new Size(24, 24);
             statusStrip1.Items.AddRange(new ToolStripItem[] { lblCurrXY });
-            statusStrip1.Location = new Point(0, 878);
+            statusStrip1.Location = new Point(0, 965);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new Padding(1, 0, 11, 0);
-            statusStrip1.Size = new Size(1046, 26);
+            statusStrip1.Size = new Size(1606, 26);
             statusStrip1.TabIndex = 0;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -331,7 +342,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1254, 904);
+            ClientSize = new Size(1922, 991);
             Controls.Add(splitContainer1);
             Margin = new Padding(2, 3, 2, 3);
             Name = "TheCave";
@@ -348,7 +359,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             pnlScreen.ResumeLayout(false);
-            pnlScreen.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbPixels).EndInit();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             ResumeLayout(false);
@@ -378,6 +389,7 @@
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel lblCurrXY;
         private Panel pnlScreen;
-        private Panel pnlPixels;
+        private PictureBox pbPixels;
+        private Button buttonClear;
     }
 }
