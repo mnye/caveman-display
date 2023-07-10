@@ -22,8 +22,7 @@ namespace Caveman
 
         private Renderer? renderer;           // Our Render class object
         private int scale = 5;                // Scaling factor for the pixels
-        private int ScreenW => int.Parse(txtWidth.Text);
-        private int ScreenH => int.Parse(txtHeight.Text);
+        private int ScreenW, ScreenH;
         private DrawingState currentDrawingState = DrawingState.None;
 
         public TheCave()
@@ -33,6 +32,9 @@ namespace Caveman
 
         private void TheCave_Load(object sender, EventArgs e)
         {
+            ScreenW = int.Parse(txtWidth.Text);
+            ScreenH = int.Parse(txtHeight.Text);
+
             // Initialise component list
             listViewComponents.Items.Add("Pen");
             listViewComponents.Items.Add("Square");
@@ -99,13 +101,10 @@ namespace Caveman
 
         private void UpdateLocation(int xIn, int yIn)
         {
-            var screenW = ScreenW;
-            var screenH = ScreenH;
-
             var x = (xIn / scale);
             var y = (yIn / scale);
 
-            if (x > screenW || y > screenH)
+            if (x > ScreenW || y > ScreenH)
                 lblCurrXY.Text = $"OOB";
             else
                 lblCurrXY.Text = $"{x},{y}";
