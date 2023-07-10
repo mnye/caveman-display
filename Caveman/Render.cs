@@ -44,16 +44,56 @@ namespace Caveman
 
         public void DrawLine(int x1, int y1, int x2, int y2)
         {
-            // Determine if horizontal or vertical
-            // todo
+            int xLength = x2 - x1;
+            int yLength = y2 - y1;
+
+            if (xLength == 0 && yLength == 0) { return; }
 
             Graphics g = Graphics.FromImage(drawArea);
 
-            for (int i = x1; i <= x2; i++)
+            // Determine if line is horizontal or vertical
+            bool isHorizontal = (Math.Abs(xLength) > Math.Abs(yLength));
+
+            if (isHorizontal)
             {
-                pixelBuffer[i,y1] = 1;
-                g.FillRectangle(pixelBrush, new Rectangle(i * scale, y1 * scale, scale, scale));
+                if (x2 > x1)
+                {
+                    for (int i = x1; i < x2; i++)
+                    {
+                        pixelBuffer[i,y1] = 1;
+                        g.FillRectangle(pixelBrush, new Rectangle(i * scale, y1 * scale, scale, scale));
+                    }
+                }
+                else if (x1 > x2)
+                {
+                    for (int i = x1; i > x2; i--)
+                    {
+                        pixelBuffer[i, y1] = 1;
+                        g.FillRectangle(pixelBrush, new Rectangle(i * scale, y1 * scale, scale, scale));
+                    }
+                }
+            } 
+            else
+            {
+                if (y2 > y1)
+                {
+                    for (int i = y1; i < y2; i++)
+                    {
+                        pixelBuffer[x1, i] = 1;
+                        g.FillRectangle(pixelBrush, new Rectangle(x1 * scale, i * scale, scale, scale));
+                    }
+                }
+                else if (y1 > y2)
+                {
+                    for (int i = y1; i > y2; i--)
+                    {
+                        pixelBuffer[x1, i] = 1;
+                        g.FillRectangle(pixelBrush, new Rectangle(x1 * scale, i * scale, scale, scale));
+                    }
+                }
             }
+
+
 
             // Draw image to picturebox
             pb.Image = drawArea;
