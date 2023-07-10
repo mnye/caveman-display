@@ -12,6 +12,7 @@ namespace Caveman
         public PictureBox pb;
         public Bitmap drawArea;
         private int width, height, scale;
+        private int[,] pixelBuffer;
 
         public Renderer(PictureBox pbIn, int widthIn, int heightIn, int scaleIn)
         {
@@ -19,6 +20,8 @@ namespace Caveman
             this.width = widthIn;
             this.height = heightIn;
             this.scale = scaleIn;
+
+            pixelBuffer = new int[width, height];
             drawArea = new Bitmap(width * scale, height * scale);
             pb.Image = drawArea;
         }
@@ -29,6 +32,7 @@ namespace Caveman
             g = Graphics.FromImage(drawArea);
             SolidBrush pixelBrush = new SolidBrush(Color.Black);
 
+            pixelBuffer[x, y] = 1;
             g.FillRectangle(pixelBrush, new Rectangle(x * scale, y * scale, scale, scale));
 
             // Draw image to picturebox
@@ -38,6 +42,15 @@ namespace Caveman
 
         public void Clear()
         {
+            // Clear pixel buffer
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    pixelBuffer[x,y] = 0;
+                }
+            }
+
             // Clear image area and set to white
             Graphics g;
             g = Graphics.FromImage(drawArea);

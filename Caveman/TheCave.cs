@@ -64,10 +64,17 @@ namespace Caveman
 
         private void pbPixels_MouseUp(object sender, MouseEventArgs e)
         {
+            if (listViewComponents.SelectedItems.Count == 0) {
+                return;
+            }
+
             var x = (e.X / scale);
             var y = (e.Y / scale);
 
-            renderer.DrawPixel(x, y);
+            if (listViewComponents.SelectedItems[0].Text == "Pixel")
+            {
+                renderer.DrawPixel(x, y);
+            }
         }
 
         private void buttonClear_Click(object sender, EventArgs e)

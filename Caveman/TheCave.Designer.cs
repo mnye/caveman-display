@@ -213,6 +213,7 @@
             // 
             listViewComponents.Location = new Point(9, 123);
             listViewComponents.Margin = new Padding(2, 3, 2, 3);
+            listViewComponents.MultiSelect = false;
             listViewComponents.Name = "listViewComponents";
             listViewComponents.Size = new Size(139, 121);
             listViewComponents.TabIndex = 5;
