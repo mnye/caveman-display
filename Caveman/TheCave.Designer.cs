@@ -86,8 +86,8 @@
             // 
             splitContainer1.Panel2.Controls.Add(pnlScreen);
             splitContainer1.Panel2.Controls.Add(statusStrip1);
-            splitContainer1.Size = new Size(1922, 991);
-            splitContainer1.SplitterDistance = 313;
+            splitContainer1.Size = new Size(2398, 1231);
+            splitContainer1.SplitterDistance = 390;
             splitContainer1.SplitterWidth = 3;
             splitContainer1.TabIndex = 0;
             // 
@@ -132,10 +132,10 @@
             panel2.Controls.Add(comboBox1);
             panel2.Controls.Add(textBox1);
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(9, 676);
+            panel2.Location = new Point(9, 916);
             panel2.Margin = new Padding(2, 3, 2, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(291, 307);
+            panel2.Size = new Size(368, 307);
             panel2.TabIndex = 6;
             // 
             // textBox2
@@ -238,7 +238,7 @@
             panel1.Location = new Point(0, 56);
             panel1.Margin = new Padding(2, 3, 2, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(313, 27);
+            panel1.Size = new Size(390, 27);
             panel1.TabIndex = 3;
             // 
             // txtHeight
@@ -282,7 +282,7 @@
             comboOutput.Location = new Point(0, 28);
             comboOutput.Margin = new Padding(2, 3, 2, 3);
             comboOutput.Name = "comboOutput";
-            comboOutput.Size = new Size(313, 28);
+            comboOutput.Size = new Size(390, 28);
             comboOutput.TabIndex = 1;
             comboOutput.Text = "Adafruit GFX Library";
             // 
@@ -293,7 +293,7 @@
             comboScreen.Location = new Point(0, 0);
             comboScreen.Margin = new Padding(2, 3, 2, 3);
             comboScreen.Name = "comboScreen";
-            comboScreen.Size = new Size(313, 28);
+            comboScreen.Size = new Size(390, 28);
             comboScreen.TabIndex = 0;
             comboScreen.Text = "Sharp MemoryLCD 2.7\"";
             // 
@@ -307,7 +307,7 @@
             pnlScreen.Location = new Point(0, 0);
             pnlScreen.Margin = new Padding(2, 3, 2, 3);
             pnlScreen.Name = "pnlScreen";
-            pnlScreen.Size = new Size(1606, 965);
+            pnlScreen.Size = new Size(2005, 1205);
             pnlScreen.TabIndex = 1;
             // 
             // pbPixels
@@ -315,9 +315,10 @@
             pbPixels.BackColor = Color.DarkGray;
             pbPixels.Location = new Point(3, 3);
             pbPixels.Name = "pbPixels";
-            pbPixels.Size = new Size(1600, 960);
+            pbPixels.Size = new Size(2000, 1200);
             pbPixels.TabIndex = 0;
             pbPixels.TabStop = false;
+            pbPixels.MouseDown += pbPixels_MouseDown;
             pbPixels.MouseMove += pbPixels_MouseMove;
             pbPixels.MouseUp += pbPixels_MouseUp;
             // 
@@ -325,10 +326,10 @@
             // 
             statusStrip1.ImageScalingSize = new Size(24, 24);
             statusStrip1.Items.AddRange(new ToolStripItem[] { lblCurrXY });
-            statusStrip1.Location = new Point(0, 965);
+            statusStrip1.Location = new Point(0, 1205);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new Padding(1, 0, 11, 0);
-            statusStrip1.Size = new Size(1606, 26);
+            statusStrip1.Size = new Size(2005, 26);
             statusStrip1.TabIndex = 0;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -342,10 +343,11 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1922, 991);
+            ClientSize = new Size(2398, 1231);
             Controls.Add(splitContainer1);
             Margin = new Padding(2, 3, 2, 3);
             Name = "TheCave";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "TheCave";
             Load += TheCave_Load;
             splitContainer1.Panel1.ResumeLayout(false);

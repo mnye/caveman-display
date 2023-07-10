@@ -15,15 +15,16 @@ namespace Caveman
         private enum DrawingState
         {
             None,
-            DrawPixel,          // User has selected to draw a pixel
-            SquareStarted,      // User has selected top-left point of square
-            TextEntry           // User has selected location to draw text
+            DrawPixels,          // User has selected to draw a pixels and mouse is down
+            SquareStarted,       // User has selected top-left point of square
+            TextEntry            // User has selected location to draw text
         }
 
         private Renderer? renderer;           // Our Render class object
         private int scale = 5;                // Scaling factor for the pixels
         private int ScreenW => int.Parse(txtWidth.Text);
         private int ScreenH => int.Parse(txtHeight.Text);
+        private DrawingState currentDrawingState = DrawingState.None;
 
         public TheCave()
         {
@@ -33,7 +34,7 @@ namespace Caveman
         private void TheCave_Load(object sender, EventArgs e)
         {
             // Initialise component list
-            listViewComponents.Items.Add("Pixel");
+            listViewComponents.Items.Add("Pen");
             listViewComponents.Items.Add("Square");
             listViewComponents.Items.Add("Text");
 
@@ -43,38 +44,69 @@ namespace Caveman
 
         private void pbPixels_MouseMove(object sender, MouseEventArgs e)
         {
-            var p = sender as PictureBox;
-            if (p == null) throw new ArgumentException("need panel to move");
+            UpdateLocation(e.X, e.Y);
 
-            // Work out what pixel we are in
-            var screenW = ScreenW;
-            var screenH = ScreenH;
+            var x = (e.X / scale);
+            var y = (e.Y / scale);
 
-            var col = p.Width / screenW;
-            var row = p.Height / screenH;
+            if (x < 0 || x >= ScreenW || y < 0 || y >= ScreenH) { return; }
 
-            var x = (e.X / col);
-            var y = (e.Y / row);
+            if (currentDrawingState == DrawingState.DrawPixels)
+            {
+                renderer.DrawPixel(x, y);
+            }
 
-            if (x > screenW || y > screenH)
-                lblCurrXY.Text = $"OOB";
-            else
-                lblCurrXY.Text = $"{x},{y}";
         }
 
-        private void pbPixels_MouseUp(object sender, MouseEventArgs e)
+        private void pbPixels_MouseDown(object sender, MouseEventArgs e)
         {
-            if (listViewComponents.SelectedItems.Count == 0) {
+            if (listViewComponents.SelectedItems.Count == 0)
+            {
                 return;
             }
 
             var x = (e.X / scale);
             var y = (e.Y / scale);
 
-            if (listViewComponents.SelectedItems[0].Text == "Pixel")
+            if (listViewComponents.SelectedItems[0].Text == "Pen")
             {
+                currentDrawingState = DrawingState.DrawPixels;
                 renderer.DrawPixel(x, y);
             }
+        }
+
+        private void pbPixels_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (listViewComponents.SelectedItems.Count == 0) { return; }
+
+            var x = (e.X / scale);
+            var y = (e.Y / scale);
+
+            if (x < 0 || x >= ScreenW || y < 0 || y >= ScreenH) 
+            { 
+                currentDrawingState = DrawingState.None;
+                return; 
+            }
+
+            if (currentDrawingState == DrawingState.DrawPixels)
+            {
+                currentDrawingState = DrawingState.None;
+                renderer.DrawPixel(x, y);
+            }      
+        }
+
+        private void UpdateLocation(int xIn, int yIn)
+        {
+            var screenW = ScreenW;
+            var screenH = ScreenH;
+
+            var x = (xIn / scale);
+            var y = (yIn / scale);
+
+            if (x > screenW || y > screenH)
+                lblCurrXY.Text = $"OOB";
+            else
+                lblCurrXY.Text = $"{x},{y}";
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
