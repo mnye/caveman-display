@@ -51,31 +51,20 @@ namespace Caveman
 
             Graphics g = Graphics.FromImage(drawArea);
 
-            // Determine if line is horizontal or vertical
             bool isHorizontal = (Math.Abs(xLength) > Math.Abs(yLength));
 
             if (isHorizontal)
             {
-                if (x2 > x1)
+                if (x1 > x2) { (x2, x1) = (x1, x2); }
+                for (int i = x1; i < x2; i++)
                 {
-                    for (int i = x1; i < x2; i++)
-                    {
-                        pixelBuffer[i,y1] = 1;
-                        g.FillRectangle(pixelBrush, new Rectangle(i * scale, y1 * scale, scale, scale));
-                    }
-                }
-                else if (x1 > x2)
-                {
-                    for (int i = x1; i > x2; i--)
-                    {
-                        pixelBuffer[i, y1] = 1;
-                        g.FillRectangle(pixelBrush, new Rectangle(i * scale, y1 * scale, scale, scale));
-                    }
+                    pixelBuffer[i, y1] = 1;
+                    g.FillRectangle(pixelBrush, new Rectangle(i * scale, y1 * scale, scale, scale));
                 }
             } 
             else
             {
-                if (y2 > y1)
+                if (y1 > y2) { (y2, y1) = (y1, y2); }
                 {
                     for (int i = y1; i < y2; i++)
                     {
@@ -83,19 +72,8 @@ namespace Caveman
                         g.FillRectangle(pixelBrush, new Rectangle(x1 * scale, i * scale, scale, scale));
                     }
                 }
-                else if (y1 > y2)
-                {
-                    for (int i = y1; i > y2; i--)
-                    {
-                        pixelBuffer[x1, i] = 1;
-                        g.FillRectangle(pixelBrush, new Rectangle(x1 * scale, i * scale, scale, scale));
-                    }
-                }
             }
 
-
-
-            // Draw image to picturebox
             pb.Image = drawArea;
             g.Dispose();
         }
@@ -129,7 +107,6 @@ namespace Caveman
                 g.DrawLine(penFore, 0, scale * i, totalWidth, scale * i);
             }
 
-            // Draw image to picturebox
             pb.Image = drawArea;
             g.Dispose();
         }
