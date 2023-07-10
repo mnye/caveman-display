@@ -11,9 +11,7 @@ namespace Caveman
     {
         public PictureBox pb;
         public Bitmap drawArea;
-        private int width;
-        private int height;
-        private int scale;
+        private int width, height, scale;
 
         public Renderer(PictureBox pbIn, int widthIn, int heightIn, int scaleIn)
         {

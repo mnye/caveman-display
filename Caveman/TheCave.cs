@@ -21,7 +21,7 @@ namespace Caveman
         }
 
         private Renderer? renderer;           // Our Render class object
-        private int scale = 4;                // Scaling factor for the pixels
+        private int scale = 5;                // Scaling factor for the pixels
         private int ScreenW => int.Parse(txtWidth.Text);
         private int ScreenH => int.Parse(txtHeight.Text);
 
@@ -39,13 +39,6 @@ namespace Caveman
 
             renderer = new Renderer(pbPixels, ScreenW, ScreenH, scale);
             renderer.Clear();
-            renderer.DrawPixel(1, 1);
-        }
-
-        private void pbPixels_Paint(object sender, PaintEventArgs e)
-        {
-
-
         }
 
         private void pbPixels_MouseMove(object sender, MouseEventArgs e)

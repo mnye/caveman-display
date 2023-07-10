@@ -317,7 +317,6 @@
             pbPixels.Size = new Size(1600, 960);
             pbPixels.TabIndex = 0;
             pbPixels.TabStop = false;
-            pbPixels.Paint += pbPixels_Paint;
             pbPixels.MouseMove += pbPixels_MouseMove;
             pbPixels.MouseUp += pbPixels_MouseUp;
             // 
