@@ -37,7 +37,7 @@ namespace Caveman
 
             // Initialise component list
             listViewComponents.Items.Add("Pen");
-            listViewComponents.Items.Add("Square");
+            listViewComponents.Items.Add("Line");
             listViewComponents.Items.Add("Text");
 
             renderer = new Renderer(pbPixels, ScreenW, ScreenH, scale);

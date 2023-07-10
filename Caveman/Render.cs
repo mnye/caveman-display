@@ -11,18 +11,20 @@ namespace Caveman
     {
         public PictureBox pb;
         public Bitmap drawArea;
-        private int width, height, scale;
+        private int screenWidth, screenHeight, totalWidth, totalHeight, scale;
         private int[,] pixelBuffer;
 
         public Renderer(PictureBox pbIn, int widthIn, int heightIn, int scaleIn)
         {
             this.pb = pbIn;
-            this.width = widthIn;
-            this.height = heightIn;
+            this.screenWidth = widthIn;
+            this.screenHeight = heightIn;
             this.scale = scaleIn;
+            this.totalWidth = widthIn * scaleIn;
+            this.totalHeight = heightIn * scaleIn;
 
-            pixelBuffer = new int[width, height];
-            drawArea = new Bitmap(width * scale, height * scale);
+            pixelBuffer = new int[screenWidth, screenHeight];
+            drawArea = new Bitmap(totalWidth,totalHeight);
             pb.Image = drawArea;
         }
 
@@ -40,12 +42,17 @@ namespace Caveman
             g.Dispose();
         }
 
+        public void DrawLine(int x1, int y1, int x2, int y2)
+        {
+
+        }
+
         public void Clear()
         {
             // Clear pixel buffer
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < screenHeight; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < screenWidth; x++)
                 {
                     pixelBuffer[x,y] = 0;
                 }
@@ -54,26 +61,21 @@ namespace Caveman
             // Clear image area and set to white
             Graphics g;
             g = Graphics.FromImage(drawArea);
-            Pen _Fore = new Pen(Color.LightGray);
-
-            // Draw our grid for the screen pixels
-            var maxX = width * scale;
-            var maxY = height * scale;
-
-            var border = new Pen(Color.Black);
+            Pen penFore = new Pen(Color.LightGray);
+            Pen penBorder = new Pen(Color.Black);
 
             g.Clear(Color.White);
             
-            g.DrawLine(border, maxX, 0, maxX, maxY);
-            g.DrawLine(border, 0, maxY, maxX, maxY);
+            g.DrawLine(penBorder, totalWidth, 0, totalWidth, totalHeight);
+            g.DrawLine(penBorder, 0, totalHeight, totalWidth, totalHeight);
 
-            for (int i = 1; i < width; i++)
+            for (int i = 1; i < screenWidth; i++)
             {
-                g.DrawLine(_Fore, scale * i, 0, scale * i, maxY);
+                g.DrawLine(penFore, scale * i, 0, scale * i, totalHeight);
             }
-            for (int i = 1; i < height; i++)
+            for (int i = 1; i < screenHeight; i++)
             {
-                g.DrawLine(_Fore, 0, scale * i, maxX, scale * i);
+                g.DrawLine(penFore, 0, scale * i, totalWidth, scale * i);
             }
 
             // Draw image to picturebox
