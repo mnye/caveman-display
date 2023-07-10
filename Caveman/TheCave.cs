@@ -44,8 +44,6 @@ namespace Caveman
 
         private void pbPixels_MouseMove(object sender, MouseEventArgs e)
         {
-            UpdateLocation(e.X, e.Y);
-
             var x = (e.X / scale);
             var y = (e.Y / scale);
 
@@ -54,8 +52,11 @@ namespace Caveman
             if (currentDrawingState == DrawingState.DrawPixels)
             {
                 renderer.DrawPixel(x, y);
+            } 
+            else if (currentDrawingState == DrawingState.None)
+            {
+                UpdateLocation(e.X, e.Y);
             }
-
         }
 
         private void pbPixels_MouseDown(object sender, MouseEventArgs e)
@@ -72,6 +73,7 @@ namespace Caveman
             {
                 currentDrawingState = DrawingState.DrawPixels;
                 renderer.DrawPixel(x, y);
+                lblCurrXY.Text = " ";
             }
         }
 
