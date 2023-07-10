@@ -14,6 +14,8 @@ namespace Caveman
         private int screenWidth, screenHeight, totalWidth, totalHeight, scale;
         private int[,] pixelBuffer;
 
+        SolidBrush pixelBrush = new SolidBrush(Color.Black);
+
         public Renderer(PictureBox pbIn, int widthIn, int heightIn, int scaleIn)
         {
             this.pb = pbIn;
@@ -30,9 +32,7 @@ namespace Caveman
 
         public void DrawPixel(int x, int y)
         {
-            Graphics g;
-            g = Graphics.FromImage(drawArea);
-            SolidBrush pixelBrush = new SolidBrush(Color.Black);
+            Graphics g = Graphics.FromImage(drawArea);
 
             pixelBuffer[x, y] = 1;
             g.FillRectangle(pixelBrush, new Rectangle(x * scale, y * scale, scale, scale));
@@ -44,7 +44,20 @@ namespace Caveman
 
         public void DrawLine(int x1, int y1, int x2, int y2)
         {
+            // Determine if horizontal or vertical
+            // todo
 
+            Graphics g = Graphics.FromImage(drawArea);
+
+            for (int i = x1; i <= x2; i++)
+            {
+                pixelBuffer[i,y1] = 1;
+                g.FillRectangle(pixelBrush, new Rectangle(i * scale, y1 * scale, scale, scale));
+            }
+
+            // Draw image to picturebox
+            pb.Image = drawArea;
+            g.Dispose();
         }
 
         public void Clear()
@@ -59,13 +72,11 @@ namespace Caveman
             }
 
             // Clear image area and set to white
-            Graphics g;
-            g = Graphics.FromImage(drawArea);
+            Graphics g = Graphics.FromImage(drawArea);
             Pen penFore = new Pen(Color.LightGray);
             Pen penBorder = new Pen(Color.Black);
 
             g.Clear(Color.White);
-            
             g.DrawLine(penBorder, totalWidth, 0, totalWidth, totalHeight);
             g.DrawLine(penBorder, 0, totalHeight, totalWidth, totalHeight);
 

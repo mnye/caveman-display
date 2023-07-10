@@ -12,18 +12,25 @@ namespace Caveman
 {
     public partial class TheCave : Form
     {
+        struct GridPoint
+        {
+            public int x, y;
+        }
         private enum DrawingState
         {
             None,
             DrawPixels,          // User has selected to draw a pixels and mouse is down
-            SquareStarted,       // User has selected top-left point of square
+            DrawLine,            // User has selected line tool and mouse is down
             TextEntry            // User has selected location to draw text
         }
 
-        private Renderer? renderer;           // Our Render class object
-        private int scale = 5;                // Scaling factor for the pixels
+        private Renderer? renderer;
+        private int scale = 5; 
         private int ScreenW, ScreenH;
+
+
         private DrawingState currentDrawingState = DrawingState.None;
+        private GridPoint elementStartLocation;     // Start location when drawing an element
 
         public TheCave()
         {
@@ -77,6 +84,13 @@ namespace Caveman
                 renderer.DrawPixel(x, y);
                 lblCurrXY.Text = " ";
             }
+            else if (listViewComponents.SelectedItems[0].Text == "Line")
+            {
+                currentDrawingState = DrawingState.DrawLine;
+                elementStartLocation.x = x;
+                elementStartLocation.y = y;
+
+            }
         }
 
         private void pbPixels_MouseUp(object sender, MouseEventArgs e)
@@ -96,7 +110,12 @@ namespace Caveman
             {
                 currentDrawingState = DrawingState.None;
                 renderer.DrawPixel(x, y);
-            }      
+            }
+            else if (currentDrawingState == DrawingState.DrawLine)
+            {
+                currentDrawingState = DrawingState.None;
+                renderer.DrawLine(elementStartLocation.x, elementStartLocation.y, x, y);
+            }
         }
 
         private void UpdateLocation(int xIn, int yIn)
