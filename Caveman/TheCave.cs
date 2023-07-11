@@ -12,10 +12,6 @@ namespace Caveman
 {
     public partial class TheCave : Form
     {
-        struct GridPoint
-        {
-            public int x, y;
-        }
         private enum DrawingState
         {
             None,
@@ -30,7 +26,8 @@ namespace Caveman
 
 
         private DrawingState currentDrawingState = DrawingState.None;
-        private GridPoint elementStartLocation;     // Start location when drawing an element
+        private Point currentMouseLocation;     // Current mouse location on the grid
+        private Point elementStartLocation;     // Start location when drawing an element
 
         public TheCave()
         {
@@ -56,6 +53,10 @@ namespace Caveman
             var x = (e.X / scale);
             var y = (e.Y / scale);
 
+            // Check if the grid location has changed
+            if (currentMouseLocation.X == x && currentMouseLocation.Y == y) { return; }
+            currentMouseLocation = new Point(x, y);
+
             if (x < 0 || x >= ScreenW || y < 0 || y >= ScreenH) { return; }
 
             if (currentDrawingState == DrawingState.DrawPixels)
@@ -64,11 +65,11 @@ namespace Caveman
             }
             else if (currentDrawingState == DrawingState.DrawLine)
             {
-                renderer.DrawLine(elementStartLocation.x, elementStartLocation.y, x, y);
+                renderer.DrawLine(elementStartLocation.X, elementStartLocation.Y, x, y);
             }
             else if (currentDrawingState == DrawingState.None)
             {
-                UpdateLocation(e.X, e.Y);
+                lblCurrXY.Text = $"{x},{y}";
             }
         }
 
@@ -91,8 +92,7 @@ namespace Caveman
             else if (listViewComponents.SelectedItems[0].Text == "Line")
             {
                 currentDrawingState = DrawingState.DrawLine;
-                elementStartLocation.x = x;
-                elementStartLocation.y = y;
+                elementStartLocation = new Point(x, y);
 
             }
         }
@@ -118,19 +118,8 @@ namespace Caveman
             else if (currentDrawingState == DrawingState.DrawLine)
             {
                 currentDrawingState = DrawingState.None;
-                renderer.DrawLine(elementStartLocation.x, elementStartLocation.y, x, y);
+                renderer.DrawLine(elementStartLocation.X, elementStartLocation.Y, x, y);
             }
-        }
-
-        private void UpdateLocation(int xIn, int yIn)
-        {
-            var x = (xIn / scale);
-            var y = (yIn / scale);
-
-            if (x > ScreenW || y > ScreenH)
-                lblCurrXY.Text = $"OOB";
-            else
-                lblCurrXY.Text = $"{x},{y}";
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
