@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             splitContainer1 = new SplitContainer();
+            label4 = new Label();
+            textBoxTextEntry = new TextBox();
             buttonClear = new Button();
             button2 = new Button();
-            buttonAdd = new Button();
             panel2 = new Panel();
             textBox2 = new TextBox();
             checkBox2 = new CheckBox();
@@ -72,9 +73,10 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(label4);
+            splitContainer1.Panel1.Controls.Add(textBoxTextEntry);
             splitContainer1.Panel1.Controls.Add(buttonClear);
             splitContainer1.Panel1.Controls.Add(button2);
-            splitContainer1.Panel1.Controls.Add(buttonAdd);
             splitContainer1.Panel1.Controls.Add(panel2);
             splitContainer1.Panel1.Controls.Add(listViewComponents);
             splitContainer1.Panel1.Controls.Add(label1);
@@ -91,6 +93,23 @@
             splitContainer1.SplitterWidth = 3;
             splitContainer1.TabIndex = 0;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(13, 276);
+            label4.Name = "label4";
+            label4.Size = new Size(73, 20);
+            label4.TabIndex = 11;
+            label4.Text = "Text Entry";
+            // 
+            // textBoxTextEntry
+            // 
+            textBoxTextEntry.Enabled = false;
+            textBoxTextEntry.Location = new Point(92, 273);
+            textBoxTextEntry.Name = "textBoxTextEntry";
+            textBoxTextEntry.Size = new Size(285, 27);
+            textBoxTextEntry.TabIndex = 10;
+            // 
             // buttonClear
             // 
             buttonClear.Location = new Point(31, 623);
@@ -104,23 +123,13 @@
             // 
             // button2
             // 
-            button2.Location = new Point(31, 303);
+            button2.Location = new Point(31, 557);
             button2.Margin = new Padding(2, 3, 2, 3);
             button2.Name = "button2";
-            button2.Size = new Size(133, 27);
+            button2.Size = new Size(133, 29);
             button2.TabIndex = 8;
             button2.Text = "Delete";
             button2.UseVisualStyleBackColor = true;
-            // 
-            // buttonAdd
-            // 
-            buttonAdd.Location = new Point(31, 270);
-            buttonAdd.Margin = new Padding(2, 3, 2, 3);
-            buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(133, 28);
-            buttonAdd.TabIndex = 7;
-            buttonAdd.Text = "Add";
-            buttonAdd.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -218,6 +227,7 @@
             listViewComponents.Size = new Size(139, 121);
             listViewComponents.TabIndex = 5;
             listViewComponents.UseCompatibleStateImageBehavior = false;
+            listViewComponents.ItemSelectionChanged += listViewComponents_ItemSelectionChanged;
             // 
             // label1
             // 
@@ -384,7 +394,6 @@
         private Label label2;
         private ListView listViewComponents;
         private Label label1;
-        private Button buttonAdd;
         private CheckBox checkBox2;
         private Button button2;
         private TextBox textBox2;
@@ -393,5 +402,7 @@
         private Panel pnlScreen;
         private PictureBox pbPixels;
         private Button buttonClear;
+        private Label label4;
+        private TextBox textBoxTextEntry;
     }
 }

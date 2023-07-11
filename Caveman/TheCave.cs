@@ -17,11 +17,11 @@ namespace Caveman
             None,
             DrawPixels,          // User has selected to draw a pixels and mouse is down
             DrawLine,            // User has selected line tool and mouse is down
-            TextEntry            // User has selected location to draw text
+            DrawText             // User has entered text and is choosing where to place it
         }
 
         private Renderer? renderer;
-        private int scale = 5; 
+        private int scale = 5;
         private int ScreenW, ScreenH;
 
 
@@ -104,10 +104,10 @@ namespace Caveman
             var x = (e.X / scale);
             var y = (e.Y / scale);
 
-            if (x < 0 || x >= ScreenW || y < 0 || y >= ScreenH) 
-            { 
+            if (x < 0 || x >= ScreenW || y < 0 || y >= ScreenH)
+            {
                 currentDrawingState = DrawingState.None;
-                return; 
+                return;
             }
 
             if (currentDrawingState == DrawingState.DrawPixels)
@@ -118,7 +118,6 @@ namespace Caveman
             else if (currentDrawingState == DrawingState.DrawLine)
             {
                 currentDrawingState = DrawingState.None;
-                //renderer.DrawLine(elementStartLocation.X, elementStartLocation.Y, x, y);
                 renderer.commitLine();
             }
         }
@@ -126,6 +125,21 @@ namespace Caveman
         private void buttonClear_Click(object sender, EventArgs e)
         {
             renderer.Clear();
+        }
+
+        private void listViewComponents_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (listViewComponents.SelectedItems.Count == 0) { return; }
+
+            if (listViewComponents.SelectedItems[0].Text == "Text")
+            {
+                textBoxTextEntry.Enabled = true;
+            }
+            else
+            {
+                textBoxTextEntry.Enabled = false;
+                textBoxTextEntry.Clear();
+            }
         }
     }
 }
