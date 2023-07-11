@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 
 namespace Caveman
@@ -10,7 +11,8 @@ namespace Caveman
     class Renderer
     {
         public PictureBox pb;
-        public Bitmap drawArea;
+        public Bitmap drawArea;         // The main draw area
+        public Bitmap tempDrawArea;     // Temporary draw area while drawing an object
         private int screenWidth, screenHeight, totalWidth, totalHeight, scale;
         private int[,] pixelBuffer;
 
@@ -49,7 +51,8 @@ namespace Caveman
 
             if (xLength == 0 && yLength == 0) { return; }
 
-            Graphics g = Graphics.FromImage(drawArea);
+            tempDrawArea = (Bitmap) drawArea.Clone();
+            Graphics g = Graphics.FromImage(tempDrawArea);
 
             bool isHorizontal = (Math.Abs(xLength) > Math.Abs(yLength));
 
@@ -74,8 +77,14 @@ namespace Caveman
                 }
             }
 
-            pb.Image = drawArea;
+            pb.Image = tempDrawArea;
             g.Dispose();
+        }
+
+        public void commitLine()
+        {
+            drawArea = (Bitmap) tempDrawArea.Clone();
+            pb.Image = drawArea;
         }
 
         public void Clear()

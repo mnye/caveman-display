@@ -118,7 +118,8 @@ namespace Caveman
             else if (currentDrawingState == DrawingState.DrawLine)
             {
                 currentDrawingState = DrawingState.None;
-                renderer.DrawLine(elementStartLocation.X, elementStartLocation.Y, x, y);
+                //renderer.DrawLine(elementStartLocation.X, elementStartLocation.Y, x, y);
+                renderer.commitLine();
             }
         }
 
