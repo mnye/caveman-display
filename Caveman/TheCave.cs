@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,11 +26,12 @@ namespace Caveman
         private int scale = 5;
         private int ScreenW, ScreenH;
 
-
         private DrawingState currentDrawingState = DrawingState.None;
         private Point currentMouseLocation;     // Current mouse location on the grid
         private Point elementStartLocation;     // Start location when drawing an element
 
+        private List<CaveElement> caveElements = new List<CaveElement>();
+        
         public TheCave()
         {
             InitializeComponent();
@@ -121,6 +123,12 @@ namespace Caveman
             {
                 currentDrawingState = DrawingState.None;
                 renderer.commitLine();
+                // Need to tidy up this file and change all X, Y to Point(), below is temporary
+                Point tempStartLocation = new Point(elementStartLocation.X, elementStartLocation.Y);
+                Point tempEndLocation = new Point(x, y);
+
+                LineElement newLine = new LineElement(tempStartLocation, tempEndLocation);
+                caveElements.Add(newLine);
             }
         }
 

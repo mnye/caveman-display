@@ -32,10 +32,10 @@ namespace Caveman
     class LineElement : CaveElement
     {
         public Point endLocation;
-        public LineElement(Point my_startLocation) 
+        public LineElement(Point my_startLocation, Point my_endLocation) 
             : base(ElementType.Line, my_startLocation)
         { 
-            endLocation = my_startLocation;
+            endLocation = my_endLocation;
         }
 
         public override string GenerateCpp() 

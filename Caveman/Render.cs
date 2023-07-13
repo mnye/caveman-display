@@ -14,7 +14,10 @@ namespace Caveman
         public Bitmap drawArea;         // The main draw area
         public Bitmap tempDrawArea;     // Temporary draw area while drawing an object
         private int screenWidth, screenHeight, totalWidth, totalHeight, scale;
-        private int[,] pixelBuffer;
+
+        // Drawing buffers
+        private int[,] pixelBuffer;     // Generated buffer to display entire screen
+        //private int[,] penBuffer;       // Pixels drawn using the pen
 
         SolidBrush pixelBrush = new SolidBrush(Color.Black);
 
@@ -28,6 +31,7 @@ namespace Caveman
             this.totalHeight = heightIn * scaleIn;
 
             pixelBuffer = new int[screenWidth, screenHeight];
+            //penBuffer = new int[screenWidth, screenHeight];
             drawArea = new Bitmap(totalWidth,totalHeight);
             pb.Image = drawArea;
         }
@@ -59,11 +63,11 @@ namespace Caveman
             if (isHorizontal)
             {
                 if (x1 > x2) { (x2, x1) = (x1, x2); }
-                for (int i = x1; i <= x2; i++)
-                {
-                    pixelBuffer[i, y1] = 1;
-                    g.FillRectangle(pixelBrush, new Rectangle(i * scale, y1 * scale, scale, scale));
-                }
+                    for (int i = x1; i <= x2; i++)
+                    {
+                        pixelBuffer[i, y1] = 1;
+                        g.FillRectangle(pixelBrush, new Rectangle(i * scale, y1 * scale, scale, scale));
+                    }
             } 
             else
             {
@@ -87,6 +91,12 @@ namespace Caveman
             pb.Image = drawArea;
         }
 
+        // Recreate the draw area when something changes
+        public void RecreateDrawArea()
+        {
+
+        }
+
         public void Clear()
         {
             // Clear pixel buffer
@@ -94,7 +104,7 @@ namespace Caveman
             {
                 for (int x = 0; x < screenWidth; x++)
                 {
-                    pixelBuffer[x,y] = 0;
+                    pixelBuffer[x, y] = 0;
                 }
             }
 
