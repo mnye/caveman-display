@@ -21,6 +21,7 @@ namespace Caveman
         }
 
         private Renderer? renderer;
+        private Generator? generator;
         private int scale = 5;
         private int ScreenW, ScreenH;
 
@@ -45,6 +46,7 @@ namespace Caveman
             listViewComponents.Items.Add("Text");
 
             renderer = new Renderer(pbPixels, ScreenW, ScreenH, scale);
+            generator = new Generator(); // Use dynamic allocation for now
             renderer.Clear();
         }
 
