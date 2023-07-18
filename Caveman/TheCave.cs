@@ -54,12 +54,13 @@ namespace Caveman
 
         private void pbPixels_MouseMove(object sender, MouseEventArgs e)
         {
-            var x = (e.X / scale);
-            var y = (e.Y / scale);
+            var x = e.X / scale;
+            var y = e.Y / scale;
+            Point newMouseLocation = new(x, y);
 
             // Check if the grid location has changed
-            if (currentMouseLocation.X == x && currentMouseLocation.Y == y) { return; }
-            currentMouseLocation = new Point(x, y);
+            if (currentMouseLocation == newMouseLocation) { return; }
+            currentMouseLocation = newMouseLocation;
 
             if (x < 0 || x >= ScreenW || y < 0 || y >= ScreenH) { return; }
 
@@ -79,13 +80,10 @@ namespace Caveman
 
         private void pbPixels_MouseDown(object sender, MouseEventArgs e)
         {
-            if (listViewComponents.SelectedItems.Count == 0)
-            {
-                return;
-            }
+            if (listViewComponents.SelectedItems.Count == 0) { return; }
 
-            var x = (e.X / scale);
-            var y = (e.Y / scale);
+            var x = e.X / scale;
+            var y = e.Y / scale;
 
             if (listViewComponents.SelectedItems[0].Text == "Pen")
             {
@@ -105,8 +103,8 @@ namespace Caveman
         {
             if (listViewComponents.SelectedItems.Count == 0) { return; }
 
-            var x = (e.X / scale);
-            var y = (e.Y / scale);
+            var x = e.X / scale;
+            var y = e.Y / scale;
 
             if (x < 0 || x >= ScreenW || y < 0 || y >= ScreenH)
             {
@@ -123,11 +121,11 @@ namespace Caveman
             {
                 currentDrawingState = DrawingState.None;
                 renderer.commitLine();
-                // Need to tidy up this file and change all X, Y to Point(), below is temporary
-                Point tempStartLocation = new Point(elementStartLocation.X, elementStartLocation.Y);
-                Point tempEndLocation = new Point(x, y);
+                
+                Point tempStartLocation = elementStartLocation;
+                Point tempEndLocation = new(x, y);
 
-                LineElement newLine = new LineElement(tempStartLocation, tempEndLocation);
+                LineElement newLine = new(tempStartLocation, tempEndLocation);
                 caveElements.Add(newLine);
             }
         }
