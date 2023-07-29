@@ -120,6 +120,13 @@ namespace Caveman
 
             if (x < 0 || x >= ScreenW || y < 0 || y >= ScreenH)
             {
+                    
+                if (currentDrawingState == DrawingState.DrawBox ||
+                    currentDrawingState == DrawingState.DrawLine) 
+                {
+                    renderer.commitElement();
+                }
+
                 currentDrawingState = DrawingState.None;
                 return;
             }
