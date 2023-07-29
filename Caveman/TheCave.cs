@@ -18,6 +18,7 @@ namespace Caveman
             None,
             DrawPixels,          // User has selected to draw a pixels and mouse is down
             DrawLine,            // User has selected line tool and mouse is down
+            DrawBox,             // User has selected box tool and mouse is down
             DrawText             // User has entered text and is choosing where to place it
         }
 
@@ -46,6 +47,7 @@ namespace Caveman
             listViewComponents.Items.Add("Pen");
             listViewComponents.Items.Add("Line");
             listViewComponents.Items.Add("Text");
+            listViewComponents.Items.Add("Box");
 
             renderer = new Renderer(pbPixels, ScreenW, ScreenH, scale);
             generator = new Generator(); // Use dynamic allocation for now
@@ -72,6 +74,10 @@ namespace Caveman
             {
                 renderer.DrawLine(elementStartLocation.X, elementStartLocation.Y, x, y);
             }
+            else if (currentDrawingState == DrawingState.DrawBox)
+            {
+                renderer.DrawBox(elementStartLocation.X, elementStartLocation.Y, x, y);
+            }
             else if (currentDrawingState == DrawingState.None)
             {
                 lblCurrXY.Text = $"{x},{y}";
@@ -94,6 +100,12 @@ namespace Caveman
             else if (listViewComponents.SelectedItems[0].Text == "Line")
             {
                 currentDrawingState = DrawingState.DrawLine;
+                elementStartLocation = new Point(x, y);
+
+            }
+            else if (listViewComponents.SelectedItems[0].Text == "Box")
+            {
+                currentDrawingState = DrawingState.DrawBox;
                 elementStartLocation = new Point(x, y);
 
             }
@@ -120,13 +132,24 @@ namespace Caveman
             else if (currentDrawingState == DrawingState.DrawLine)
             {
                 currentDrawingState = DrawingState.None;
-                renderer.commitLine();
+                renderer.commitElement();
                 
                 Point tempStartLocation = elementStartLocation;
                 Point tempEndLocation = new(x, y);
 
                 LineElement newLine = new(tempStartLocation, tempEndLocation);
                 caveElements.Add(newLine);
+            }
+            else if (currentDrawingState == DrawingState.DrawBox)
+            {
+                currentDrawingState = DrawingState.None;
+                renderer.commitElement();
+
+                Point tempStartLocation = elementStartLocation;
+                Point tempEndLocation = new(x, y);
+
+                BoxElement newBox = new(tempStartLocation, tempEndLocation);
+                caveElements.Add(newBox);
             }
         }
 

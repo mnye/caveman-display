@@ -12,6 +12,7 @@ namespace Caveman
     enum ElementType
     {
         Line,
+        Box,
         Text
     }
 
@@ -41,6 +42,20 @@ namespace Caveman
         public override string GenerateCpp() 
         {
             return "display.drawLine(BLACK);";
+        }
+    }
+    class BoxElement : CaveElement
+    {
+        public Point endLocation;
+        public BoxElement(Point my_startLocation, Point my_endLocation)
+            : base(ElementType.Box, my_startLocation)
+        {
+            endLocation = my_endLocation;
+        }
+
+        public override string GenerateCpp()
+        {
+            return "display.drawRect(BLACK);";
         }
     }
     class TextElement : CaveElement

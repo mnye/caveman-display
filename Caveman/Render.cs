@@ -85,9 +85,43 @@ namespace Caveman
             g.Dispose();
         }
 
-        public void commitLine()
+        public void DrawBox(int x1, int y1, int x2, int y2)
         {
-            drawArea = (Bitmap) tempDrawArea.Clone();
+            int xLength = Math.Abs(x2 - x1);
+            int yLength = Math.Abs(y2 - y1);
+
+            if (xLength == 0 && yLength == 0) { return; }
+
+            tempDrawArea = (Bitmap)drawArea.Clone();
+            Graphics g = Graphics.FromImage(tempDrawArea);
+
+            if (x1 > x2) { (x2, x1) = (x1, x2); }
+            if (y1 > y2) { (y2, y1) = (y1, y2); }
+
+            for (int i = x1; i <= x2; i++)
+            {
+                pixelBuffer[i, y1] = 1;
+                g.FillRectangle(pixelBrush, new Rectangle(i * scale, y1 * scale, scale, scale));
+                pixelBuffer[i, y1 + yLength] = 1;
+                g.FillRectangle(pixelBrush, new Rectangle(i * scale, (y1 + yLength) * scale, scale, scale));
+            }
+
+            for (int i = y1; i <= y2; i++)
+            {
+                pixelBuffer[x1, i] = 1;
+                g.FillRectangle(pixelBrush, new Rectangle(x1 * scale, i * scale, scale, scale));
+                pixelBuffer[x1 + xLength, i] = 1;
+                g.FillRectangle(pixelBrush, new Rectangle((x1  + xLength) * scale, i * scale, scale, scale));
+            }
+
+            pb.Image = tempDrawArea;
+            g.Dispose();
+        }
+
+        // Commit the temporary canvas to the main canvas
+        public void commitElement()
+        {
+            drawArea = (Bitmap)tempDrawArea.Clone();
             pb.Image = drawArea;
         }
 
