@@ -41,7 +41,7 @@ namespace Caveman
 
         public override string GenerateCpp() 
         {
-            return "display.drawLine(BLACK);";
+            return $"display.drawLine({startLocation.X},{startLocation.Y},{endLocation.X},{endLocation.Y},BLACK);\n";
         }
     }
     class BoxElement : CaveElement
@@ -55,7 +55,7 @@ namespace Caveman
 
         public override string GenerateCpp()
         {
-            return "display.drawRect(BLACK);";
+            return $"display.drawRect({startLocation.X},{startLocation.Y},{endLocation.X},{endLocation.Y},BLACK);\n";
         }
     }
     class TextElement : CaveElement
@@ -68,7 +68,7 @@ namespace Caveman
 
         public override string GenerateCpp()
         {
-            return "hello, I am a text object :)";
+            return "hello, I am a text object :)\n";
         }
     }
 }

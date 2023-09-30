@@ -32,7 +32,6 @@
             label4 = new Label();
             textBoxTextEntry = new TextBox();
             buttonClear = new Button();
-            button2 = new Button();
             panel2 = new Panel();
             textBox2 = new TextBox();
             checkBox2 = new CheckBox();
@@ -53,6 +52,7 @@
             pbPixels = new PictureBox();
             statusStrip1 = new StatusStrip();
             lblCurrXY = new ToolStripStatusLabel();
+            buttonGenerate = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -73,10 +73,10 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(buttonGenerate);
             splitContainer1.Panel1.Controls.Add(label4);
             splitContainer1.Panel1.Controls.Add(textBoxTextEntry);
             splitContainer1.Panel1.Controls.Add(buttonClear);
-            splitContainer1.Panel1.Controls.Add(button2);
             splitContainer1.Panel1.Controls.Add(panel2);
             splitContainer1.Panel1.Controls.Add(listViewComponents);
             splitContainer1.Panel1.Controls.Add(label1);
@@ -120,16 +120,6 @@
             buttonClear.Text = "Clear Image";
             buttonClear.UseVisualStyleBackColor = true;
             buttonClear.Click += buttonClear_Click;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(31, 557);
-            button2.Margin = new Padding(2, 3, 2, 3);
-            button2.Name = "button2";
-            button2.Size = new Size(133, 29);
-            button2.TabIndex = 8;
-            button2.Text = "Delete";
-            button2.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -349,6 +339,17 @@
             lblCurrXY.Size = new Size(29, 20);
             lblCurrXY.Text = "X,Y";
             // 
+            // buttonGenerate
+            // 
+            buttonGenerate.Location = new Point(31, 689);
+            buttonGenerate.Margin = new Padding(2, 3, 2, 3);
+            buttonGenerate.Name = "buttonGenerate";
+            buttonGenerate.Size = new Size(133, 29);
+            buttonGenerate.TabIndex = 12;
+            buttonGenerate.Text = "Generate Code";
+            buttonGenerate.UseVisualStyleBackColor = true;
+            buttonGenerate.Click += buttonGenerate_Click;
+            // 
             // TheCave
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -395,7 +396,6 @@
         private ListView listViewComponents;
         private Label label1;
         private CheckBox checkBox2;
-        private Button button2;
         private TextBox textBox2;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel lblCurrXY;
@@ -404,5 +404,6 @@
         private Button buttonClear;
         private Label label4;
         private TextBox textBoxTextEntry;
+        private Button buttonGenerate;
     }
 }

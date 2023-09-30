@@ -32,7 +32,7 @@ namespace Caveman
         private Point elementStartLocation;     // Start location when drawing an element
 
         private List<CaveElement> caveElements = new List<CaveElement>();
-        
+
         public TheCave()
         {
             InitializeComponent();
@@ -120,9 +120,9 @@ namespace Caveman
 
             if (x < 0 || x >= ScreenW || y < 0 || y >= ScreenH)
             {
-                    
+                // Make sure we commit the element when mouse is released outside the drawing area
                 if (currentDrawingState == DrawingState.DrawBox ||
-                    currentDrawingState == DrawingState.DrawLine) 
+                    currentDrawingState == DrawingState.DrawLine)
                 {
                     renderer.commitElement();
                 }
@@ -140,7 +140,7 @@ namespace Caveman
             {
                 currentDrawingState = DrawingState.None;
                 renderer.commitElement();
-                
+
                 Point tempStartLocation = elementStartLocation;
                 Point tempEndLocation = new(x, y);
 
@@ -178,6 +178,18 @@ namespace Caveman
                 textBoxTextEntry.Enabled = false;
                 textBoxTextEntry.Clear();
             }
+        }
+
+        private void buttonGenerate_Click(object sender, EventArgs e)
+        {
+            string codeText = "";
+
+            foreach (CaveElement element in caveElements) {
+                codeText += element.GenerateCpp();
+            }
+
+            Form outputForm = new FormOutput(codeText);
+            outputForm.ShowDialog();
         }
     }
 }
